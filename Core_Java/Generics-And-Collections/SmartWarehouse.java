@@ -1,43 +1,38 @@
 import java.util.*;
 
-abstract class WarehouseItem {
-    private String name;
-    public WarehouseItem(String name) { this.name = name; }
-    public String getName() { return name; }
+abstract class JobRole {
+    private String title;
+    public JobRole(String title) { this.title = title; }
+    public String getTitle() { return title; }
 }
 
-class Electronics extends WarehouseItem {
-    public Electronics(String name) { super(name); }
+class SoftwareEngineer extends JobRole {
+    public SoftwareEngineer() { super("Software Engineer"); }
 }
 
-class Groceries extends WarehouseItem {
-    public Groceries(String name) { super(name); }
+class DataScientist extends JobRole {
+    public DataScientist() { super("Data Scientist"); }
 }
 
-class Furniture extends WarehouseItem {
-    public Furniture(String name) { super(name); }
+class ProductManager extends JobRole {
+    public ProductManager() { super("Product Manager"); }
 }
 
-class Storage<T extends WarehouseItem> {
-    private List<T> items = new ArrayList<>();
+class Resume<T extends JobRole> {
+    private T role;
+    public Resume(T role) { this.role = role; }
+    public T getRole() { return role; }
 
-    public void addItem(T item) { items.add(item); }
-
-    public List<T> getItems() { return items; }
-
-    public static void displayItems(List<? extends WarehouseItem> items) {
-        for (WarehouseItem item : items) {
-            System.out.println(item.getName());
+    public static void screenResumes(List<? extends JobRole> roles) {
+        for (JobRole role : roles) {
+            System.out.println("Screening resume for: " + role.getTitle());
         }
     }
 }
 
-public class SmartWarehouse {
+public class ResumeScreening {
     public static void main(String[] args) {
-        Storage<Electronics> electronicStorage = new Storage<>();
-        electronicStorage.addItem(new Electronics("Laptop"));
-        electronicStorage.addItem(new Electronics("TV"));
-
-        Storage.displayItems(electronicStorage.getItems());
+        List<JobRole> resumes = Arrays.asList(new SoftwareEngineer(), new DataScientist(), new ProductManager());
+        Resume.screenResumes(resumes);
     }
 }
